@@ -8,6 +8,7 @@ import Plus from '../svg/plus.svg';
 import Delete from '../svg/delete.svg';
 import Edit from '../svg/edit.svg';
 import axios from 'axios';
+import baseURl from '../../baseUrl';
 
 const List: React.FC<{ expenses: expenseType[] }> = ({ expenses }) => {
     const [addExpense, setAddExpense] = React.useState<boolean>(false);
@@ -59,7 +60,7 @@ const List: React.FC<{ expenses: expenseType[] }> = ({ expenses }) => {
     const deleteExpense = (expense?: any, token?: string): any => {
         axios
             .post(
-                `http://localhost:8000/api/expense/delete/${expense._id}`,
+                `${baseURl}/api/expense/delete/${expense._id}`,
                 { id: expense._id },
                 { headers: { 'x-auth-token': token } },
             )

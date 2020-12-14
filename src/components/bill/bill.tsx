@@ -2,6 +2,7 @@ import * as React from 'react';
 import axios from 'axios';
 import { userContext } from '../../store/context/userContext';
 import Header from '../header/header';
+import baseURl from '../../baseUrl';
 
 const Bill: React.FC = () => {
     const { state } = React.useContext(userContext);
@@ -17,11 +18,11 @@ const Bill: React.FC = () => {
             const file = document.getElementById('file') as HTMLInputElement;
             const formData = new FormData();
             formData.append('file', file.files[0]);
-            const savedFile = await axios.post('http://localhost:8000/bill/', formData).then((res) => res.data);
+            const savedFile = await axios.post(`${baseURl}/bill/`, formData).then((res) => res.data);
             const bills = [...state.user.bills] || [];
             bills.push(savedFile.filename);
             const updatedUser = await axios
-                .post('http://localhost:8000/api/user/bill', {
+                .post(`${baseURl}/api/user/bill`, {
                     id: state.user.id,
                     user: { bills: [...bills] },
                 })
@@ -51,12 +52,7 @@ const Bill: React.FC = () => {
                     state.user.bills.map((bill, idx) => {
                         return (
                             <div key={idx}>
-                                <img
-                                    src={`http://localhost:8000/bill/${bill}`}
-                                    alt="bill_image"
-                                    width="250px"
-                                    height="200px"
-                                />
+                                <img src={`${baseURl}/bill/${bill}`} alt="bill_image" width="250px" height="200px" />
                             </div>
                         );
                     })}

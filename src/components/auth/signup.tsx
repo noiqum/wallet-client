@@ -5,6 +5,7 @@ import { inputValidate } from '../../utils/utils';
 import Il from '../svg/il.svg';
 
 import { userContext } from '../../store/context/userContext';
+import baseURl from '../../baseUrl';
 const SignUp: React.FC = () => {
     interface Idata {
         userName: string;
@@ -44,7 +45,7 @@ const SignUp: React.FC = () => {
         } else {
             setError({ ...error, email: null, password: null, userName: null });
             axios
-                .post('http://localhost:8000/api/user/', data)
+                .post(`${baseURl}/api/user/`, data)
                 .then((res) => {
                     dispatch({
                         type: 'USER_LOGIN',

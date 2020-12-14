@@ -4,12 +4,13 @@ import Header from '../header/header';
 import Side from '../side/side';
 import Content from '../content/content';
 import axios from 'axios';
+import baseURl from '../../baseUrl';
 const Main: React.FC = () => {
     const { state, dispatch } = React.useContext(userContext);
     React.useEffect(() => {
         axios
             .post(
-                'http://localhost:8000/api/expense/list',
+                `${baseURl}/api/expense/list`,
                 { user: state.user.id },
                 { headers: { 'x-auth-token': state.user.token } },
             )

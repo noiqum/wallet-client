@@ -3,6 +3,7 @@ import axios from 'axios';
 import { userContext } from '../../store/context/userContext';
 import { Link } from 'react-router-dom';
 import Door from '../svg/door.svg';
+import baseURl from '../../baseUrl';
 type Iprops = {
     userName: string;
 };
@@ -10,7 +11,7 @@ type Iprops = {
 const Logout: React.FC<Iprops> = () => {
     const { state, dispatch } = React.useContext(userContext);
     React.useEffect(() => {
-        axios.get('http://localhost:8000/api/user/logout');
+        axios.get(`${baseURl}/api/user/logout`);
         localStorage.clear();
         dispatch({
             type: 'USER_LOGOUT',

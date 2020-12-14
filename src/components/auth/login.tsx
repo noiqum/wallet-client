@@ -4,6 +4,7 @@ import { inputValidate } from '../../utils/utils';
 import Axios from 'axios';
 import laci from '../png/laci.png';
 import { userContext } from '../../store/context/userContext';
+import baseURl from '../../baseUrl';
 
 interface Iprops {
     text?: string;
@@ -30,7 +31,7 @@ const Login: React.FC<Iprops> = () => {
             setError({ ...error, password: passwordValidation.msg });
         } else {
             setError({ ...error, email: null, password: null });
-            Axios.post('http://localhost:8000/api/user/login', { email, password })
+            Axios.post(`${baseURl}/api/user/login`, { email, password })
                 .then((res) => {
                     dispatch({
                         type: 'USER_LOGIN',

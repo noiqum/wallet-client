@@ -1,20 +1,21 @@
 import * as React from 'react';
-
 import axios from 'axios';
 import Main from './components/main/main';
 import { userContext } from './store/context/userContext';
 import { Redirect } from 'react-router-dom';
+import baseUrl from './baseUrl';
 
 type props = {
     name: string;
 };
+
 function App({ name }: props): JSX.Element {
     const [login, setLogin] = React.useState<boolean>(false);
     const { state, dispatch } = React.useContext(userContext);
     const [redirect, setRedirect] = React.useState<boolean>(false);
     const check = async (token: string) => {
         const result = await axios
-            .post('http://localhost:8000/api/user/verify', { token })
+            .post(`${baseUrl}/api/user/verify`, { token })
             .then((res) => {
                 if (res.data.name === 'TokenExpiredError') {
                     setRedirect(true);
@@ -26,7 +27,7 @@ function App({ name }: props): JSX.Element {
     };
     const getUser = async (id: string) => {
         const user = await axios
-            .get('http://localhost:8000/api/user/' + id)
+            .get(`${baseUrl}/api/user/` + id)
             .then((res) => res.data)
             .catch((err) => console.log(err));
         return user;

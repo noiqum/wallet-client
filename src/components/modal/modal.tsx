@@ -3,6 +3,7 @@ import { modalFormValidate } from '../../utils/utils';
 import axios from 'axios';
 import { userContext } from '../../store/context/userContext';
 import Down from '../svg/down.svg';
+import baseURl from '../../baseUrl';
 type TypeExpenseData = {
     name: string;
     price: number;
@@ -70,7 +71,7 @@ const Modal: React.FC<{ mood: string; close: () => void; dataFromParent?: TypeEx
             if (mood === 'Add Expense') {
                 const expense = { ...data, user: state.user.id };
                 axios
-                    .post('http://localhost:8000/api/expense/', expense, {
+                    .post(`${baseURl}/api/expense/`, expense, {
                         headers: { 'x-auth-token': state.user.token },
                     })
                     .then((res) => {
@@ -84,7 +85,7 @@ const Modal: React.FC<{ mood: string; close: () => void; dataFromParent?: TypeEx
             } else if (mood === 'Update') {
                 axios
                     .post(
-                        'http://localhost:8000/api/expense/update/' + id,
+                        `${baseURl}/api/expense/update/` + id,
                         { id, expense: data },
                         { headers: { 'x-auth-token': state.user.token } },
                     )
